@@ -1,13 +1,16 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import Home from "./components/Home";
-import Login from "./components/Login";
+import Home from "./components/HomePage/Home";
+import Login from "./components/Login/Login";
+import Registration from "./components/Login/Registration";
 import NoMatch from "./components/NoMatch";
-import { getCurrentUser } from "./services/AuthService";
+import PrivateWrapper from "./components/Protected/ProtectedWrapper";
 
 const App: React.FC = () => {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Registration />} />
+
       <Route
         path="/"
         element={
@@ -22,9 +25,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-
-const PrivateWrapper = ({ children }: { children: JSX.Element }) => {
-  const auth = getCurrentUser();
-  console.log(auth);
-  return auth?.user ? children : <Navigate to="/login" replace />;
-};
